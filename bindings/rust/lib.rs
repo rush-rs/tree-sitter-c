@@ -30,6 +30,12 @@
 //! [Parser]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Parser.html
 //! [tree-sitter]: https://tree-sitter.github.io/
 
+#[cfg(feature = "tree-sitter-standard")]
+use tree_sitter_standard as tree_sitter;
+
+#[cfg(feature = "tree-sitter-c2rust")]
+use tree_sitter_c2rust as tree_sitter;
+
 use tree_sitter::Language;
 
 extern "C" {
@@ -56,6 +62,8 @@ pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
     fn can_load_grammar() {
         let mut parser = tree_sitter::Parser::new();
